@@ -70,17 +70,38 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: jenkins
-  labels:
-    app: jenkins
+  name: jenkins-service
+  namespace: jenkins
 spec:
   ports:
-    - port: 80
-      targetPort: 8080
+  - port: 80
+    targetPort: 8080
   selector:
     app: jenkins
-    tier: jenkins
-  type: NodePort
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: jenkins
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 500m
+    ingress.kubernetes.io/proxy-body-size: 500m
+spec:
+  tls:
+  - hosts:
+    - jenkins.rodeo.io
+  rules:
+  - host: jenkins.rodeo.io 
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: jenkins-service
+          servicePort: 80
 
 ---
 
