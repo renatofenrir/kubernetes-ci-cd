@@ -120,6 +120,13 @@ spec:
         app: jenkins
         tier: jenkins
     spec:
+      hostAliases:
+      - ip: "172.22.101.111"
+        hostnames:
+        - "nexus.rodeo.io"
+        - "jenkins.rodeo.io"
+        - "docker.rodeo.io"
+        - "gogs.rodeo.io"
       serviceAccountName: jenkins
       initContainers:
       - image: lachlanevenson/k8s-kubectl:v1.11.2
