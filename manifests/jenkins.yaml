@@ -127,6 +127,9 @@ spec:
         - "jenkins.rodeo.io"
         - "docker.rodeo.io"
         - "gogs.rodeo.io"
+      - ip: "52.207.42.240"
+        hostnames:
+        - "index.docker.io"
       serviceAccountName: jenkins
       initContainers:
       - image: lachlanevenson/k8s-kubectl:v1.11.2
